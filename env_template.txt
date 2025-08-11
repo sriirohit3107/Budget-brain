@@ -1,5 +1,5 @@
 # Gemini API Configuration
-GEMINI_API_KEY=AIzaSyDTxjJTM8u5lTOzVeQtRF_LKEDawXfs4dE
+GEMINI_API_KEY="your_api_key"
 
 # Instructions:
 # 1. Copy this file to .env
