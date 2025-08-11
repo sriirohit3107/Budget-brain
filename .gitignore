@@ -106,3 +106,4 @@ Temporary Items
 
 # Keep package-lock.json for consistent installs
 !package-lock.json
+"ml/models/*.pkl" 
