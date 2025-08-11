@@ -1,0 +1,2422 @@
+/* Budget Brain - Apple-Inspired Design System */
+
+/* CSS Variables for consistent theming */
+:root {
+  /* Apple-inspired color palette */
+  --primary-blue: #007AFF;
+  --primary-purple: #5856D6;
+  --primary-green: #30D158;
+  --primary-orange: #FF9F0A;
+  --primary-red: #FF3B30;
+  --primary-pink: #FF2D92;
+  
+  /* Neutral colors */
+  --white: #FFFFFF;
+  --gray-50: #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
+  --gray-400: #9CA3AF;
+  --gray-500: #6B7280;
+  --gray-600: #4B5563;
+  --gray-700: #374151;
+  --gray-800: #1F2937;
+  --gray-900: #111827;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  
+  /* Glass morphism */
+  --glass-background: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --backdrop-blur: blur(20px);
+  
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  /* Typography */
+  --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-text: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Dark theme colors */
+  --dark-bg-primary: #1C1C1E;
+  --dark-bg-secondary: #2C2C2E;
+  --dark-text-primary: #F2F2F7;
+  --dark-text-secondary: #AEAEB2;
+  --dark-border: rgba(255, 255, 255, 0.1);
+  --dark-shadow: rgba(0, 0, 0, 0.4);
+  
+  /* 3D Effects */
+  --depth-1: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --depth-2: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --depth-3: 0 8px 16px rgba(0, 0, 0, 0.2);
+  --depth-4: 0 16px 32px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="dark"] {
+  --primary-blue: #0A84FF;
+  --primary-purple: #5E5CE6;
+  --primary-green: #32D74B;
+  --primary-orange: #FF9F0A;
+  --primary-red: #FF453A;
+  --primary-pink: #FF2D92;
+  
+  --white: #000000;
+  --gray-50: #1C1C1E;
+  --gray-100: #2C2C2E;
+  --gray-200: #3A3A3C;
+  --gray-300: #48484A;
+  --gray-400: #636366;
+  --gray-500: #8E8E93;
+  --gray-600: #AEAEB2;
+  --gray-700: #C7C7CC;
+  --gray-800: #D1D1D6;
+  --gray-900: #F2F2F7;
+  
+  --glass-background: rgba(28, 28, 30, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-text);
+  background: var(--gray-50);
+  color: var(--gray-900);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark theme body styles */
+body[data-mui-color-scheme="dark"] {
+  background: var(--dark-bg-primary);
+  color: var(--dark-text-primary);
+}
+
+.App {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--gray-50) 0%, var(--gray-100) 100%);
+  transition: background 0.3s ease;
+}
+
+/* Dark theme App styles */
+.App[data-mui-color-scheme="dark"] {
+  background: linear-gradient(135deg, var(--dark-bg-primary) 0%, var(--dark-bg-secondary) 100%);
+}
+
+@keyframes backgroundShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Apple-style smooth transitions */
+* {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+*:focus {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Apple-style glass morphism cards */
+.glass-card {
+  background: var(--glass-background);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.glass-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-xl);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Material-UI overrides for Apple aesthetic */
+.MuiPaper-root {
+  background: var(--glass-background) !important;
+  backdrop-filter: var(--backdrop-blur) !important;
+  -webkit-backdrop-filter: var(--backdrop-blur) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--shadow-md) !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+.MuiCard-root {
+  background: var(--glass-background) !important;
+  backdrop-filter: var(--backdrop-blur) !important;
+  -webkit-backdrop-filter: var(--backdrop-blur) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-lg) !important;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  overflow: hidden !important;
+}
+
+.MuiCard-root:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-xl) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Apple-style buttons */
+.MuiButton-contained {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%) !important;
+  border: none !important;
+  border-radius: var(--radius-full) !important;
+  box-shadow: var(--shadow-md) !important;
+  text-transform: none !important;
+  font-family: var(--font-display) !important;
+  font-weight: 600 !important;
+  padding: 12px 32px !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  color: white !important;
+}
+
+.MuiButton-contained:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: var(--shadow-lg) !important;
+  background: linear-gradient(135deg, #0056b3 0%, #4c46c7 100%) !important;
+}
+
+.MuiButton-contained:active {
+  transform: translateY(0) scale(0.98);
+  transition: all 0.1s ease;
+}
+
+/* Apple-style chips */
+.MuiChip-root {
+  background: var(--glass-background) !important;
+  backdrop-filter: var(--backdrop-blur) !important;
+  -webkit-backdrop-filter: var(--backdrop-blur) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-full) !important;
+  font-family: var(--font-text) !important;
+  font-weight: 500 !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  color: var(--gray-700) !important;
+}
+
+.MuiChip-clickable:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-blue) !important;
+  color: var(--primary-blue) !important;
+}
+
+/* Apple-style form elements */
+.MuiTextField-root {
+  margin-bottom: var(--space-4) !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root {
+  background: var(--glass-background) !important;
+  backdrop-filter: var(--backdrop-blur) !important;
+  -webkit-backdrop-filter: var(--backdrop-blur) !important;
+  border-radius: var(--radius-md) !important;
+  border: 1px solid var(--glass-border) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root:hover {
+  border-color: var(--primary-blue) !important;
+  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1) !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root.Mui-focused {
+  border-color: var(--primary-blue) !important;
+  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.2) !important;
+}
+
+/* Apple-style sliders */
+.MuiSlider-root {
+  color: var(--primary-blue) !important;
+  height: 6px !important;
+}
+
+.MuiSlider-track {
+  background: linear-gradient(90deg, var(--primary-blue) 0%, var(--primary-purple) 100%) !important;
+  border: none !important;
+  border-radius: var(--radius-full) !important;
+}
+
+.MuiSlider-rail {
+  background: var(--gray-200) !important;
+  border-radius: var(--radius-full) !important;
+}
+
+.MuiSlider-thumb {
+  background: white !important;
+  border: 3px solid var(--primary-blue) !important;
+  box-shadow: var(--shadow-lg) !important;
+  width: 20px !important;
+  height: 20px !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.MuiSlider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 8px rgba(0, 122, 255, 0.1) !important;
+}
+
+.MuiSlider-thumb:active {
+  transform: scale(1.3);
+  box-shadow: 0 0 0 12px rgba(0, 122, 255, 0.15) !important;
+}
+
+/* Apple-style switches */
+.MuiSwitch-root .MuiSwitch-switchBase.Mui-checked {
+  color: white !important;
+}
+
+.MuiSwitch-root .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
+  background: var(--primary-green) !important;
+}
+
+.MuiSwitch-root .MuiSwitch-track {
+  background: var(--gray-300) !important;
+  border-radius: var(--radius-full) !important;
+}
+
+/* Apple-style loading animations */
+.loading-pulse {
+  animation: applePulse 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+
+@keyframes applePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+.loading-skeleton {
+  background: linear-gradient(90deg, 
+    var(--gray-100) 25%, 
+    var(--gray-200) 50%, 
+    var(--gray-100) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Platform-specific Apple-style gradients */
+.platform-google {
+  background: linear-gradient(135deg, #4285F4 0%, #34A853 50%, #FBBC05 100%) !important;
+  color: white !important;
+  box-shadow: 0 8px 32px rgba(66, 133, 244, 0.3) !important;
+}
+
+.platform-meta {
+  background: linear-gradient(135deg, #1877F2 0%, #42A5F5 50%, #E91E63 100%) !important;
+  color: white !important;
+  box-shadow: 0 8px 32px rgba(24, 119, 242, 0.3) !important;
+}
+
+.platform-tiktok {
+  background: linear-gradient(135deg, #000000 0%, #FF0050 50%, #00F2EA 100%) !important;
+  color: white !important;
+  box-shadow: 0 8px 32px rgba(255, 0, 80, 0.3) !important;
+}
+
+.platform-linkedin {
+  background: linear-gradient(135deg, #0A66C2 0%, #004182 50%, #0E76A8 100%) !important;
+  color: white !important;
+  box-shadow: 0 8px 32px rgba(10, 102, 194, 0.3) !important;
+}
+
+/* Apple-style hero section */
+.hero-section {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 122, 255, 0.1) 0%,
+    rgba(88, 86, 214, 0.1) 50%,
+    rgba(255, 45, 146, 0.1) 100%
+  );
+  border-radius: var(--radius-xl);
+  padding: var(--space-16);
+  text-align: center;
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--glass-border);
+  margin-bottom: var(--space-8);
+}
+
+.hero-title {
+  font-family: var(--font-display) !important;
+  font-size: 3.5rem !important;
+  font-weight: 700 !important;
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-4) !important;
+  line-height: 1.1 !important;
+}
+
+.hero-subtitle {
+  font-family: var(--font-text) !important;
+  font-size: 1.25rem !important;
+  color: var(--gray-600) !important;
+  max-width: 600px;
+  margin: 0 auto var(--space-8);
+  line-height: 1.6 !important;
+}
+
+/* Apple-style cards with enhanced glass morphism */
+.apple-card {
+  background: var(--glass-background);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+}
+
+.apple-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.apple-card:hover::before {
+  opacity: 1;
+}
+
+.apple-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Dark mode toggle */
+.theme-toggle {
+  position: fixed;
+  top: var(--space-6);
+  right: var(--space-6);
+  background: var(--glass-background);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  padding: var(--space-3);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1000;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Confetti animation */
+.confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--primary-blue);
+  border-radius: 2px;
+  animation: confettiFall 3s ease-in-out infinite;
+}
+
+.confetti-piece:nth-child(2n) { background: var(--primary-purple); }
+.confetti-piece:nth-child(3n) { background: var(--primary-green); }
+.confetti-piece:nth-child(4n) { background: var(--primary-orange); }
+.confetti-piece:nth-child(5n) { background: var(--primary-pink); }
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* 3D Animations and Effects */
+@keyframes glow {
+  0% {
+    filter: drop-shadow(0 0 5px currentColor);
+  }
+  100% {
+    filter: drop-shadow(0 0 20px currentColor) drop-shadow(0 0 30px currentColor);
+  }
+}
+
+@keyframes float3D {
+  0%, 100% {
+    transform: translateY(0px) rotateY(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotateY(180deg);
+  }
+}
+
+@keyframes rotate3D {
+  0% {
+    transform: rotateY(0deg) rotateX(0deg);
+  }
+  100% {
+    transform: rotateY(360deg) rotateX(360deg);
+  }
+}
+
+@keyframes pulse3D {
+  0%, 100% {
+    transform: scale(1) translateZ(0);
+  }
+  50% {
+    transform: scale(1.05) translateZ(10px);
+  }
+}
+
+@keyframes wave3D {
+  0%, 100% {
+    transform: translateX(0) translateZ(0);
+  }
+  50% {
+    transform: translateX(10px) translateZ(5px);
+  }
+}
+
+/* 3D Card Effects */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  perspective: 1000px;
+}
+
+.card-3d:hover {
+  transform: rotateY(5deg) rotateX(5deg) translateZ(10px);
+  box-shadow: var(--depth-4);
+}
+
+.card-3d .card-content {
+  transform: translateZ(20px);
+  backface-visibility: hidden;
+}
+
+/* 3D Button Effects */
+.btn-3d {
+  transform-style: preserve-3d;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.btn-3d::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: translateZ(-1px);
+  transition: all 0.3s ease;
+}
+
+.btn-3d:hover {
+  transform: translateY(-2px) translateZ(5px);
+  box-shadow: var(--depth-3);
+}
+
+.btn-3d:active {
+  transform: translateY(0) translateZ(0);
+  box-shadow: var(--depth-1);
+}
+
+/* 3D Chart Container */
+.chart-3d-container {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: all 0.3s ease;
+}
+
+.chart-3d-container:hover {
+  transform: rotateY(2deg) rotateX(2deg);
+}
+
+/* 3D Particle Effects */
+.particle-3d {
+  animation: float3D 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px currentColor);
+}
+
+.particle-3d:nth-child(2n) {
+  animation-delay: 0.5s;
+}
+
+.particle-3d:nth-child(3n) {
+  animation-delay: 1s;
+}
+
+/* 3D Logo Effects */
+.logo-3d {
+  transform-style: preserve-3d;
+  animation: pulse3D 2s ease-in-out infinite;
+}
+
+.logo-3d:hover {
+  animation: rotate3D 2s linear infinite;
+}
+
+/* 3D Background Effects */
+.bg-3d {
+  background: linear-gradient(135deg, 
+    rgba(102, 126, 234, 0.1) 0%, 
+    rgba(118, 75, 162, 0.1) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-3d::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    transparent 70%);
+  animation: rotate3D 20s linear infinite;
+  pointer-events: none;
+}
+
+/* 3D Text Effects */
+.text-3d {
+  text-shadow: 
+    0 1px 0 #ccc,
+    0 2px 0 #c9c9c9,
+    0 3px 0 #bbb,
+    0 4px 0 #b9b9b9,
+    0 5px 0 #aaa,
+    0 6px 1px rgba(0,0,0,.1),
+    0 0 5px rgba(0,0,0,.1),
+    0 1px 3px rgba(0,0,0,.3),
+    0 3px 5px rgba(0,0,0,.2),
+    0 5px 10px rgba(0,0,0,.25),
+    0 10px 10px rgba(0,0,0,.2),
+    0 20px 20px rgba(0,0,0,.15);
+}
+
+/* 3D Hover Effects */
+.hover-3d {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.hover-3d:hover {
+  transform: translateZ(20px) rotateY(5deg);
+  box-shadow: var(--depth-4);
+}
+
+/* 3D Loading Effects */
+.loading-3d {
+  transform-style: preserve-3d;
+  animation: pulse3D 1.5s ease-in-out infinite;
+}
+
+/* 3D Success Effects */
+.success-3d {
+  animation: wave3D 0.6s ease-in-out;
+  transform-style: preserve-3d;
+}
+
+/* Responsive 3D Effects */
+@media (max-width: 768px) {
+  .card-3d:hover {
+    transform: none;
+    box-shadow: var(--depth-2);
+  }
+  
+  .btn-3d:hover {
+    transform: translateY(-1px);
+  }
+  
+  .text-3d {
+    text-shadow: 
+      0 1px 0 #ccc,
+      0 2px 0 #c9c9c9,
+      0 3px 0 #bbb;
+  }
+}
+
+/* Apple-style progress indicator */
+.progress-ring {
+  transform: rotate(-90deg);
+  transition: all 0.3s ease;
+}
+
+.progress-ring-circle {
+  stroke: var(--primary-blue);
+  stroke-linecap: round;
+  stroke-dasharray: 251.2;
+  stroke-dashoffset: 251.2;
+  transition: stroke-dashoffset 0.5s ease;
+  fill: transparent;
+  stroke-width: 8;
+}
+
+/* Apple-style section headers */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.section-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem !important;
+  }
+  
+  .apple-card {
+    padding: var(--space-4);
+  }
+  
+  .theme-toggle {
+    top: var(--space-4);
+    right: var(--space-4);
+  }
+}
+
+/* Apple-style tooltips */
+.apple-tooltip {
+  background: rgba(0, 0, 0, 0.8) !important;
+  color: white !important;
+  border-radius: var(--radius-md) !important;
+  padding: var(--space-2) var(--space-3) !important;
+  font-family: var(--font-text) !important;
+  font-size: 0.875rem !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Interactive charts */
+.recharts-wrapper {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.recharts-pie-sector:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
+  transform-origin: center;
+}
+
+/* Confidence visualization */
+.confidence-bar {
+  height: 20px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #ef4444 0%, #f59e0b 33%, #10b981 66%, #06b6d4 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.confidence-indicator {
+  position: absolute;
+  top: -5px;
+  width: 2px;
+  height: 30px;
+  background: #1f2937;
+  border-radius: 1px;
+  transition: left 0.3s ease;
+}
+
+.confidence-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* Results animation */
+.results-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.results-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+/* Interactive assumptions panel */
+.assumptions-panel {
+  border-left: 3px solid #6366f1;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.assumption-control {
+  padding: 12px;
+  border-radius: 8px;
+  background: white;
+  margin-bottom: 12px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.assumption-control:hover {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Demo company cards */
+.demo-company-card {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-block;
+  margin: 4px;
+}
+
+.demo-company-card:hover {
+  border-color: #6366f1;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.demo-company-card.selected {
+  border-color: #6366f1;
+  background: #f0f4ff;
+}
+
+/* Budget range helpers */
+.budget-helper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.budget-chip {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  color: #374151;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.budget-chip:hover {
+  border-color: #6366f1;
+  background: #f0f4ff;
+  color: #6366f1;
+}
+
+/* Enhanced tooltips */
+.custom-tooltip {
+  background: rgba(17, 24, 39, 0.95);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+/* Micro-interactions */
+.interactive-element {
+  transition: all 0.15s ease;
+}
+
+.interactive-element:hover {
+  transform: scale(1.02);
+}
+
+.interactive-element:active {
+  transform: scale(0.98);
+}
+
+/* Progress indicators */
+.progress-step {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #d1d5db;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active {
+  background: #6366f1;
+  transform: scale(1.2);
+}
+
+.progress-step.completed {
+  background: #10b981;
+}
+
+/* Responsive enhancements */
+@media (max-width: 768px) {
+  .MuiCard-root {
+    margin: 8px 0;
+  }
+  
+  .demo-company-card {
+    width: 100%;
+    margin: 4px 0;
+  }
+}
+
+/* Focus states for accessibility */
+.MuiButton-root:focus,
+.MuiTextField-root:focus-within,
+.MuiSlider-thumb:focus {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* Subtle animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Error states */
+.error-state {
+  color: #ef4444;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+/* Success states */
+.success-state {
+  color: #10b981;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+/* Logo Animations */
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes logoPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+/* Header and Logo Styles */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+.logo-container.small {
+  gap: 0.75rem;
+}
+
+.logo-brain {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+  animation: logoFloat 3s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
+
+.logo-container.small .logo-brain {
+  width: 48px;
+  height: 48px;
+}
+
+.logo-brain::before {
+  content: "";
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: logoPulse 2s ease-in-out infinite;
+}
+
+.logo-brain:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+}
+
+.logo-brain:hover::after {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* Responsive logo sizing */
+@media (max-width: 768px) {
+  .logo-container {
+    gap: 0.5rem;
+  }
+  
+  .logo-brain {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
+/* Logo text gradient enhancement */
+.logo-container .MuiTypography-root {
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Chart Enhancements for 3D-like appearance */
+.apple-card .recharts-wrapper {
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.1));
+  transition: all 0.3s ease;
+}
+
+.apple-card .recharts-wrapper:hover {
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.15));
+  transform: translateY(-2px);
+}
+
+/* Enhanced pie chart styling */
+.recharts-pie-label {
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.recharts-pie-label-line {
+  stroke-width: 2 !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Enhanced bar chart styling */
+.recharts-bar-rectangle {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: all 0.2s ease;
+}
+
+.recharts-bar-rectangle:hover {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  transform: translateY(-1px);
+}
+
+/* Chart container enhancements */
+.apple-card .MuiCardContent-root {
+  padding: 24px;
+}
+
+.apple-card .section-header {
+  margin-bottom: 20px;
+}
+
+/* Enhanced tooltip styling */
+.recharts-tooltip-wrapper {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+/* Chart legend enhancements */
+.recharts-legend-wrapper {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
+}
+
+.recharts-legend-item {
+  transition: all 0.2s ease;
+}
+
+.recharts-legend-item:hover {
+  transform: translateX(2px);
+}
+
+/* Axis styling enhancements */
+.recharts-cartesian-axis-line {
+  stroke-width: 2 !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke-opacity: 0.3;
+  stroke-dasharray: 3 3;
+}
+
+/* Responsive chart sizing */
+@media (max-width: 960px) {
+  .apple-card .recharts-wrapper {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  }
+  
+  .recharts-pie-label {
+    font-size: 10px !important;
+  }
+}
+
+/* Additional Chart Enhancements */
+.apple-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.apple-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
+}
+
+.apple-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+}
+
+/* Enhanced chart container shadows */
+.apple-card .MuiCardContent-root {
+  position: relative;
+  z-index: 1;
+}
+
+/* Chart hover effects */
+.apple-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced section headers */
+.section-header {
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.section-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, #667eea, transparent);
+  border-radius: 1px;
+}
+
+/* Chart animation enhancements */
+.recharts-pie {
+  transition: all 0.3s ease;
+}
+
+.recharts-pie:hover {
+  transform: scale(1.02);
+}
+
+/* Enhanced bar chart animations */
+.recharts-bar-rectangle {
+  transition: all 0.3s ease;
+}
+
+.recharts-bar-rectangle:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+}
+
+/* Chart tooltip enhancements */
+.recharts-tooltip-wrapper {
+  pointer-events: none;
+}
+
+.recharts-tooltip-content {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(102, 126, 234, 0.2) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+  backdrop-filter: blur(10px);
+}
+
+/* Dark mode overrides for chart tooltips */
+[data-mui-color-scheme="dark"] .recharts-tooltip-content {
+  background: rgba(28, 28, 30, 0.98) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  color: white !important;
+}
+
+/* Enhanced legend styling */
+.recharts-legend-wrapper {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  padding: 8px;
+  backdrop-filter: blur(10px);
+}
+
+/* Dark mode overrides for chart legends */
+[data-mui-color-scheme="dark"] .recharts-legend-wrapper {
+  background: rgba(28, 28, 30, 0.9) !important;
+  color: white !important;
+}
+
+.recharts-legend-item-text {
+  font-weight: 500 !important;
+  font-size: 12px !important;
+}
+
+/* Chart grid enhancements */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(102, 126, 234, 0.1);
+  stroke-width: 1;
+}
+
+/* Axis label enhancements */
+.recharts-cartesian-axis-tick-value {
+  font-weight: 500 !important;
+  font-size: 11px !important;
+}
+
+/* Responsive enhancements */
+@media (max-width: 768px) {
+  .apple-card .MuiCardContent-root {
+    padding: 16px;
+  }
+  
+  .section-header::after {
+    width: 30px;
+  }
+}
+
+/* Chart container animations */
+.apple-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.apple-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced chart animations */
+.recharts-wrapper {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.apple-card:hover .recharts-wrapper {
+  transform: scale(1.01);
+}
+
+/* Pie chart slice hover effects */
+.recharts-pie-sector {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.recharts-pie-sector:hover {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+}
+
+/* Bar chart bar hover effects */
+.recharts-bar-rectangle {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.recharts-bar-rectangle:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+}
+
+/* Chart loading states */
+.chart-loading {
+  opacity: 0.7;
+  filter: grayscale(0.3);
+}
+
+.chart-loaded {
+  opacity: 1;
+  filter: grayscale(0);
+  animation: chartFadeIn 0.6s ease-out;
+}
+
+@keyframes chartFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced chart shadows for 3D effect */
+.apple-card .recharts-wrapper {
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.1));
+  transition: all 0.3s ease;
+}
+
+.apple-card:hover .recharts-wrapper {
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.15));
+  transform: translateY(-2px);
+}
+
+/* Chart container spacing improvements */
+.apple-card .MuiCardContent-root {
+  padding: 24px !important;
+}
+
+.apple-card .section-header {
+  margin-bottom: 24px !important;
+  padding-bottom: 20px !important;
+}
+
+/* Better chart spacing */
+.apple-card .recharts-wrapper {
+  margin: 16px 0;
+}
+
+/* Reduce chart container density */
+.apple-card {
+  margin-bottom: 8px;
+}
+
+/* Enhanced section spacing */
+.section-header::after {
+  width: 50px;
+  height: 3px;
+  bottom: -8px;
+}
+
+/* Chart label improvements for less cramped appearance */
+.recharts-pie-label {
+  font-size: 11px !important;
+  line-height: 1.3 !important;
+}
+
+.recharts-pie-label-line {
+  stroke-width: 1.5 !important;
+}
+
+/* Better bar chart spacing */
+.recharts-bar-rectangle {
+  margin: 2px;
+}
+
+/* Responsive spacing adjustments */
+@media (max-width: 960px) {
+  .apple-card .MuiCardContent-root {
+    padding: 20px !important;
+  }
+  
+  .apple-card .section-header {
+    margin-bottom: 20px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .apple-card .MuiCardContent-root {
+    padding: 16px !important;
+  }
+  
+  .apple-card .section-header {
+    margin-bottom: 16px !important;
+  }
+}
+
+/* Additional spacing improvements for less cramped layout */
+.hero-section {
+  margin: 32px 0;
+  padding: 24px 0;
+}
+
+.hero-subtitle {
+  margin-bottom: 24px !important;
+}
+
+.hero-buttons {
+  margin-top: 24px;
+}
+
+/* Better card spacing */
+.apple-card {
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+.apple-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Improved section headers */
+.section-header {
+  position: relative;
+  margin-bottom: 28px !important;
+  padding-bottom: 24px !important;
+}
+
+.section-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 2px;
+}
+
+/* Better input field spacing */
+.MuiTextField-root,
+.MuiFormControl-root {
+  margin-bottom: 16px;
+}
+
+/* Enhanced chip spacing */
+.MuiChip-root {
+  margin: 4px !important;
+}
+
+/* Better accordion spacing */
+.MuiAccordion-root {
+  margin-top: 16px !important;
+}
+
+.MuiAccordionSummary-root {
+  padding: 16px 24px !important;
+}
+
+.MuiAccordionDetails-root {
+  padding: 24px !important;
+}
+
+/* Improved grid spacing */
+.MuiGrid-container {
+  margin-top: 8px !important;
+}
+
+/* Better responsive spacing */
+@media (max-width: 1200px) {
+  .apple-card .MuiCardContent-root {
+    padding: 20px !important;
+  }
+  
+  .section-header {
+    margin-bottom: 24px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    margin: 24px 0;
+    padding: 20px 0;
+  }
+  
+  .apple-card .MuiCardContent-root {
+    padding: 16px !important;
+  }
+  
+  .section-header {
+    margin-bottom: 20px !important;
+    padding-bottom: 20px !important;
+  }
+}
+
+/* Final polish for a neater, more professional appearance */
+.apple-card {
+  border-radius: 16px !important;
+  border: 1px solid rgba(102, 126, 234, 0.1) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.apple-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12) !important;
+  border-color: rgba(102, 126, 234, 0.2) !important;
+}
+
+/* Enhanced section headers with better typography */
+.section-header {
+  position: relative;
+  margin-bottom: 32px !important;
+  padding-bottom: 28px !important;
+}
+
+.section-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 64px;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 2px;
+  opacity: 0.8;
+}
+
+/* Better section icon styling */
+.section-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 8px;
+  margin-right: 12px;
+  color: white;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* Enhanced chip styling for better visual appeal */
+.MuiChip-root {
+  margin: 4px !important;
+  border-radius: 20px !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease;
+}
+
+.MuiChip-outlined {
+  border-width: 1.5px !important;
+  border-color: rgba(102, 126, 234, 0.3) !important;
+}
+
+.MuiChip-outlined:hover {
+  border-color: rgba(102, 126, 234, 0.6) !important;
+  background-color: rgba(102, 126, 234, 0.05) !important;
+}
+
+/* Better input field styling */
+.MuiTextField-root,
+.MuiFormControl-root {
+  margin-bottom: 20px !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root,
+.MuiFormControl-root .MuiOutlinedInput-root {
+  border-radius: 12px !important;
+  transition: all 0.2s ease;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root:hover,
+.MuiFormControl-root .MuiOutlinedInput-root:hover {
+  border-color: rgba(102, 126, 234, 0.4) !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root.Mui-focused,
+.MuiFormControl-root .MuiOutlinedInput-root.Mui-focused {
+  border-color: #667eea !important;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+}
+
+/* Enhanced accordion styling */
+.MuiAccordion-root {
+  border-radius: 12px !important;
+  margin-top: 20px !important;
+  border: 1px solid rgba(102, 126, 234, 0.1) !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
+}
+
+.MuiAccordionSummary-root {
+  padding: 20px 24px !important;
+  border-radius: 12px !important;
+}
+
+.MuiAccordionDetails-root {
+  padding: 24px !important;
+  background: rgba(102, 126, 234, 0.02) !important;
+}
+
+/* Better slider styling */
+.MuiSlider-root {
+  margin: 16px 0 !important;
+}
+
+.MuiSlider-track {
+  height: 6px !important;
+  border-radius: 3px !important;
+}
+
+.MuiSlider-thumb {
+  width: 20px !important;
+  height: 20px !important;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Enhanced hero section */
+.hero-section {
+  margin: 40px 0;
+  padding: 32px 0;
+  text-align: center;
+}
+
+.hero-subtitle {
+  margin-bottom: 32px !important;
+  font-size: 1.2rem !important;
+  color: rgba(0, 0, 0, 0.7) !important;
+  font-weight: 400 !important;
+}
+
+.hero-buttons {
+  margin-top: 32px;
+}
+
+/* Enhanced hero section styling */
+.hero-section {
+  text-align: center !important;
+  margin: 48px 0 !important;
+  padding: 40px 0 !important;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%) !important;
+  border-radius: 24px !important;
+  border: 1px solid rgba(102, 126, 234, 0.1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.hero-section::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(0, 0, 0, 0.02) 100%) !important;
+  pointer-events: none !important;
+}
+
+.hero-section::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 1px !important;
+  background: linear-gradient(90deg, transparent 0%, rgba(102, 126, 234, 0.3) 50%, transparent 100%) !important;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem !important;
+  color: var(--text-secondary) !important;
+  margin-bottom: 32px !important;
+  font-weight: 500 !important;
+  line-height: 1.6 !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.hero-buttons {
+  margin-top: 32px !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Enhanced button styling */
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none !important;
+  border-radius: 16px !important;
+  padding: 16px 32px !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: white !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.btn-primary::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+  transition: left 0.5s ease !important;
+}
+
+.btn-primary:hover::before {
+  left: 100% !important;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4) !important;
+}
+
+.btn-primary:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Better responsive design */
+@media (max-width: 1200px) {
+  .apple-card .MuiCardContent-root {
+    padding: 20px !important;
+  }
+  
+  .section-header {
+    margin-bottom: 24px !important;
+  }
+  
+  .hero-section {
+    margin: 32px 0;
+    padding: 28px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .apple-card {
+    border-radius: 12px !important;
+  }
+  
+  .apple-card .MuiCardContent-root {
+    padding: 16px !important;
+  }
+  
+  .section-header {
+    margin-bottom: 20px !important;
+    padding-bottom: 20px !important;
+  }
+  
+  .hero-section {
+    margin: 24px 0;
+    padding: 20px 0;
+  }
+  
+  .btn-primary {
+    padding: 12px 24px !important;
+  }
+}
+
+/* Subtle animations and micro-interactions for polish */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Smooth animations for all interactive elements */
+.apple-card,
+.MuiChip-root,
+.MuiTextField-root,
+.MuiFormControl-root,
+.MuiAccordion-root,
+.btn-primary {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Enhanced hover states with smooth transitions */
+.apple-card:hover .section-icon {
+  transform: scale(1.1);
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+}
+
+.MuiChip-root:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+/* Smooth focus transitions for form elements */
+.MuiTextField-root .MuiOutlinedInput-root,
+.MuiFormControl-root .MuiOutlinedInput-root {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced loading animation */
+.loading-pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Smooth chart animations */
+.recharts-wrapper {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.apple-card:hover .recharts-wrapper {
+  transform: scale(1.02);
+}
+
+/* Better section header animations */
+.section-header::after {
+  transition: width 0.3s ease;
+}
+
+.apple-card:hover .section-header::after {
+  width: 80px;
+}
+
+/* Enhanced accordion animations */
+.MuiAccordion-root {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.MuiAccordion-root:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Smooth slider interactions */
+.MuiSlider-thumb {
+  transition: all 0.2s ease;
+}
+
+.MuiSlider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4) !important;
+}
+
+/* Enhanced button interactions */
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Smooth page transitions */
+.fade-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.4s ease-out;
+}
+
+/* Enhanced tooltip animations */
+.recharts-tooltip-content {
+  animation: fadeInUp 0.2s ease-out;
+}
+
+/* Better responsive animations */
+@media (prefers-reduced-motion: reduce) {
+  .apple-card,
+  .MuiChip-root,
+  .MuiTextField-root,
+  .MuiFormControl-root,
+  .MuiAccordion-root,
+  .btn-primary,
+  .recharts-wrapper {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Enhanced chart spacing and 3D effects */
+.apple-card .recharts-wrapper {
+  margin: 24px 0 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.12)) !important;
+}
+
+.apple-card:hover .recharts-wrapper {
+  transform: translateY(-2px) !important;
+  filter: drop-shadow(0 12px 40px rgba(0, 0, 0, 0.16)) !important;
+}
+
+/* Enhanced pie chart styling */
+.recharts-pie-sector {
+  transition: all 0.3s ease !important;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1)) !important;
+}
+
+.recharts-pie-sector:hover {
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15)) !important;
+  transform: scale(1.02) !important;
+}
+
+/* Enhanced bar chart styling */
+.recharts-bar-rectangle {
+  transition: all 0.3s ease !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08)) !important;
+}
+
+.recharts-bar-rectangle:hover {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12)) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Enhanced chart labels */
+.recharts-pie-label {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+}
+
+.recharts-pie-label-line {
+  stroke-width: 2.5 !important;
+  stroke: rgba(102, 102, 102, 0.8) !important;
+}
+
+/* Enhanced chart tooltips */
+.recharts-tooltip-wrapper {
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.15)) !important;
+}
+
+.recharts-tooltip-content {
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(102, 126, 234, 0.2) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+  padding: 16px !important;
+  font-weight: 500 !important;
+}
+
+/* Dark mode overrides for chart tooltips */
+[data-mui-color-scheme="dark"] .recharts-tooltip-content {
+  background: rgba(28, 28, 30, 0.98) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+  color: white !important;
+}
+
+/* Enhanced chart legends */
+.recharts-legend-wrapper {
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.08)) !important;
+}
+
+.recharts-legend-item {
+  transition: all 0.2s ease !important;
+  padding: 4px 8px !important;
+  border-radius: 8px !important;
+}
+
+.recharts-legend-item:hover {
+  background: rgba(102, 126, 234, 0.1) !important;
+  transform: translateX(2px) !important;
+}
+
+/* Enhanced axis styling */
+.recharts-cartesian-axis-line {
+  stroke: rgba(102, 102, 102, 0.6) !important;
+  stroke-width: 2 !important;
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(102, 102, 102, 0.15) !important;
+  stroke-width: 1 !important;
+}
+
+.recharts-cartesian-axis-tick-value {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  fill: rgba(102, 102, 102, 0.8) !important;
+}
+
+/* Chart container enhancements */
+.chart-container {
+  padding: 24px !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%) !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(102, 126, 234, 0.08) !important;
+  margin: 16px 0 !important;
+}
+
+/* Dark mode overrides for chart containers */
+[data-mui-color-scheme="dark"] .chart-container {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Responsive chart adjustments */
+@media (max-width: 1200px) {
+  .apple-card .recharts-wrapper {
+    margin: 20px 0 !important;
+  }
+  
+  .chart-container {
+    padding: 20px !important;
+    margin: 12px 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .apple-card .recharts-wrapper {
+    margin: 16px 0 !important;
+  }
+  
+  .chart-container {
+    padding: 16px !important;
+    margin: 8px 0 !important;
+  }
+  
+  .recharts-pie-label {
+    font-size: 11px !important;
+  }
+}
+
+/* Additional chart enhancements for 3D effect */
+.apple-card .recharts-wrapper {
+  position: relative !important;
+}
+
+.apple-card .recharts-wrapper::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(0, 0, 0, 0.05) 100%) !important;
+  border-radius: 16px !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+/* Enhanced pie chart 3D effect */
+.recharts-pie {
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15)) !important;
+}
+
+.recharts-pie-sector {
+  position: relative !important;
+}
+
+.recharts-pie-sector::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%) !important;
+  border-radius: 50% !important;
+  pointer-events: none !important;
+}
+
+/* Enhanced bar chart 3D effect */
+.recharts-bar-rectangle {
+  position: relative !important;
+}
+
+.recharts-bar-rectangle::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 50%) !important;
+  pointer-events: none !important;
+  border-radius: 6px !important;
+}
+
+/* Budget bar specific styling */
+.recharts-bar-rectangle[data-key="budget"] {
+  filter: drop-shadow(0 4px 12px rgba(25, 118, 210, 0.3)) !important;
+}
+
+.recharts-bar-rectangle[data-key="budget"]::after {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, transparent 60%) !important;
+}
+
+/* Enhanced chart container shadows */
+.apple-card {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.apple-card::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%) !important;
+  opacity: 0 !important;
+  transition: opacity 0.3s ease !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+.apple-card:hover::before {
+  opacity: 1 !important;
+}
+
+/* Enhanced section header styling */
+.section-header {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.section-header::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -8px !important;
+  left: -8px !important;
+  right: -8px !important;
+  bottom: -8px !important;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.03) 0%, rgba(118, 75, 162, 0.03) 100%) !important;
+  border-radius: 12px !important;
+  z-index: -1 !important;
+}
+
+/* Enhanced chart loading states */
+.chart-loading {
+  background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%) !important;
+  background-size: 200% 100% !important;
+  animation: shimmer 1.5s ease-in-out infinite !important;
+  border-radius: 20px !important;
+  height: 400px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #6c757d !important;
+  font-weight: 500 !important;
+  font-size: 1.1rem !important;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Final chart polish and spacing */
+.apple-card {
+  margin-bottom: 32px !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.apple-card:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Enhanced chart spacing */
+.apple-card .recharts-wrapper {
+  margin: 32px 0 !important;
+  padding: 16px !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+  border-radius: 20px !important;
+}
+
+/* Enhanced section header spacing */
+.section-header {
+  margin-bottom: 32px !important;
+  padding-bottom: 24px !important;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.1) !important;
+}
+
+.section-header::after {
+  width: 80px !important;
+  height: 4px !important;
+  background: linear-gradient(90deg, #667eea, #764ba2) !important;
+  border-radius: 2px !important;
+  opacity: 0.9 !important;
+}
+
+/* Enhanced chart titles */
+.apple-card .section-header .MuiTypography-h5 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  font-size: 1.5rem !important;
+  letter-spacing: -0.5px !important;
+}
+
+/* Enhanced chart descriptions */
+.apple-card .section-header .MuiTypography-body2 {
+  font-size: 1rem !important;
+  line-height: 1.6 !important;
+  color: rgba(102, 102, 102, 0.8) !important;
+  font-weight: 500 !important;
+}
+
+/* Enhanced chart container shadows */
+.apple-card {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid rgba(102, 126, 234, 0.08) !important;
+}
+
+.apple-card:hover {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12) !important;
+  border-color: rgba(102, 126, 234, 0.15) !important;
+  transform: translateY(-4px) !important;
+}
+
+/* Enhanced chart loading animation */
+.chart-loading {
+  background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%) !important;
+  background-size: 200% 100% !important;
+  animation: shimmer 1.5s ease-in-out infinite !important;
+  border-radius: 20px !important;
+  height: 400px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #6c757d !important;
+  font-weight: 500 !important;
+  font-size: 1.1rem !important;
+}
+
+/* Enhanced responsive design */
+@media (max-width: 1200px) {
+  .apple-card .recharts-wrapper {
+    margin: 24px 0 !important;
+    padding: 12px !important;
+  }
+  
+  .section-header {
+    margin-bottom: 24px !important;
+    padding-bottom: 20px !important;
+  }
+  
+  .apple-card .section-header .MuiTypography-h5 {
+    font-size: 1.3rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .apple-card .recharts-wrapper {
+    margin: 20px 0 !important;
+    padding: 8px !important;
+  }
+  
+  .section-header {
+    margin-bottom: 20px !important;
+    padding-bottom: 16px !important;
+  }
+  
+  .apple-card .section-header .MuiTypography-h5 {
+    font-size: 1.2rem !important;
+  }
+  
+  .apple-card .section-header .MuiTypography-body2 {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #1F2937;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Dark theme toggle styles */
+[data-mui-color-scheme="dark"] .theme-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #F2F2F7;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-mui-color-scheme="dark"] .theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive theme toggle */
+@media (max-width: 768px) {
+  .theme-toggle {
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Responsive header improvements */
+@media (max-width: 768px) {
+  .logo-container {
+    gap: 0.5rem;
+  }
+  
+  .logo-container.small .logo-brain {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .logo-container .MuiTypography-root {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-container.small .logo-brain {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .logo-container .MuiTypography-root {
+    font-size: 0.75rem;
+  }
+}
+

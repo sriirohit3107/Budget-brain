@@ -1,0 +1,25 @@
+{
+  "cat_cols": [
+    "industry",
+    "goal"
+  ],
+  "num_cols": [
+    "total_budget",
+    "alloc_google",
+    "alloc_meta",
+    "alloc_linkedin",
+    "alloc_tiktok",
+    "google_cpm_mid",
+    "meta_cpm_mid",
+    "tiktok_cpm_mid",
+    "linkedin_cpm_mid",
+    "google_ctr_mid",
+    "meta_ctr_mid",
+    "tiktok_ctr_mid",
+    "linkedin_ctr_mid",
+    "google_cvr_mid",
+    "meta_cvr_mid",
+    "tiktok_cvr_mid",
+    "linkedin_cvr_mid"
+  ]
+}
