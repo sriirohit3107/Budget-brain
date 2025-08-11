@@ -135,6 +135,22 @@ temp/
 *.bak
 *.backup
 
+# Machine Learning Models
+ml/models/
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.joblib
+*.pth
+*.pt
+*.onnx
+*.pb
+*.tflite
+*.model
+*.bin
+*.safetensors
+
 # OS generated files
 .DS_Store
 .DS_Store?
