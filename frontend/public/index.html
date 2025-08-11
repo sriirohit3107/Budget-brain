@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#667eea" />
+    <meta name="description" content="Budget Brain - AI-powered ad budget allocation across Google, Meta, TikTok & LinkedIn. Built for LeoAds.ai Hackathon." />
+    <meta name="keywords" content="advertising, budget allocation, AI, machine learning, Google Ads, Facebook Ads, TikTok Ads, LinkedIn Ads" />
+    <meta name="author" content="Budget Brain Team" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://budget-brain.leoads.ai/" />
+    <meta property="og:title" content="Budget Brain 🧠 - AI-Powered Ad Intelligence" />
+    <meta property="og:description" content="Intelligent budget allocation across Google, Meta, TikTok & LinkedIn using AI and structured reasoning." />
+    <meta property="og:image" content="https://budget-brain.leoads.ai/og-image.png" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://budget-brain.leoads.ai/" />
+    <meta property="twitter:title" content="Budget Brain 🧠 - AI-Powered Ad Intelligence" />
+    <meta property="twitter:description" content="Intelligent budget allocation across Google, Meta, TikTok & LinkedIn using AI and structured reasoning." />
+    <meta property="twitter:image" content="https://budget-brain.leoads.ai/og-image.png" />
+    
+    <title>Budget Brain 🧠 | AI-Powered Ad Intelligence</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" />
+    
+    <style>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+          'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+      
+      /* Loading animation for initial page load */
+      #root:empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        color: white;
+        font-size: 24px;
+        font-weight: 600;
+      }
+      
+      #root:empty::after {
+        content: "🧠 Budget Brain Loading...";
+        animation: pulse 1.5s ease-in-out infinite;
+      }
+      
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
