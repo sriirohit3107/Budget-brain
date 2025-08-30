@@ -87,8 +87,6 @@ Expected Output:
 Reasoning: Finance needs high-trust, professional channels
 ```
 
-### **Real LeoAds.ai Clients**
-
 #### **6. Shopify ($25,000/month)**
 ```
 Industry: B2B SaaS | Goal: Demos
