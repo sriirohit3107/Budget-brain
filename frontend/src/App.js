@@ -35,7 +35,7 @@ import './App.css';
 
 // ----- Axios base URL -----
 axios.defaults.baseURL =
-process.env.REACT_APP_API_BASE || 'https://budgetbrain-production.up.railway.app';
+process.env.REACT_APP_API_BASE || 'https://budget-brain-production.up.railway.app';
 
 
 function App() {

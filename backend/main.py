@@ -28,8 +28,14 @@ app = FastAPI(title="Budget Brain API", description="AI-powered ad budget alloca
 # CORS for frontend dev
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "https://budget-brain-1vhp2fcrn-sriis-projects-97853f0d.vercel.app ",
-],
+      allow_origins=[
+        "http://localhost:3000", 
+        "http://127.0.0.1:3000", 
+        "https://budget-brain-djxl.vercel.app",
+        "https://budget-brain-1vhp2fcrn-sriis-projects-97853f0d.vercel.app",
+        "https://budget-brain-production.up.railway.app",  # Correct URL
+        "https://budgetbrain-production.up.railway.app"    # Your current axios URL
+    ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
