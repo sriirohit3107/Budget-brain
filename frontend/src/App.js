@@ -194,7 +194,6 @@ function App() {
                       display: { xs: 'none', sm: 'block' }
                     }}
                   >
-                    LeoAds.ai Hackathon
                   </Typography>
                   <Chip 
                     label="AI-Powered" 
