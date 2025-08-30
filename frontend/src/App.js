@@ -346,7 +346,7 @@ function App() {
         >
           <Container maxWidth="lg">
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              Built with ❤️ for LeoAds.ai Hackathon
+              Built with ❤️
             </Typography>
             <Typography variant="caption" color="text.secondary" display="block">
               AI-Powered Budget Allocation • Monte Carlo Simulation • Gemini Intelligence
