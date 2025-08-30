@@ -1,5 +1,5 @@
 # backend/main.py
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import numpy as np
@@ -28,29 +28,54 @@ app = FastAPI(title="Budget Brain API", description="AI-powered ad budget alloca
 # CORS for frontend dev
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    #   allow_origins=[
-    #     "http://localhost:3000", 
-    #     "http://127.0.0.1:3000", 
-    #     "https://budget-brain-djxl.vercel.app",
-    #     "https://budget-brain-production.up.railway.app",  # Correct URL
-    #     "https://*.vercel.app",
-    # ],
+    allow_origins=[
+        "https://budget-brain-djxl.vercel.app",
+        "http://localhost:3000", 
+        "http://127.0.0.1:3000"
+    ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
-    expose_headers=["*"],
-    max_age=3600,  # Cache preflight response for 1 hour
 )
 
 # Add logging middleware for debugging
 @app.middleware("http")
-async def log_requests(request, call_next):
-    print(f"Incoming request: {request.method} {request.url}")
+async def cors_handler(request: Request, call_next):
+    # Log incoming request details
+    print(f"=== CORS Handler ===")
+    print(f"Method: {request.method}")
+    print(f"URL: {request.url}")
+    print(f"Path: {request.url.path}")
+    print(f"Origin: {request.headers.get('origin', 'NO ORIGIN')}")
     print(f"Headers: {dict(request.headers)}")
+    
+    # Handle preflight OPTIONS requests
+    if request.method == "OPTIONS":
+        print("🔥 Handling OPTIONS request")
+        response = Response(status_code=200)
+        response.headers["Access-Control-Allow-Origin"] = "https://budget-brain-djxl.vercel.app"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "*"
+        response.headers["Access-Control-Allow-Credentials"] = "true"
+        
+        print(f"OPTIONS Response Headers: {dict(response.headers)}")
+        print("=== END CORS Handler ===\n")
+        return response
+    
+    # Process regular requests
+    print("🚀 Processing regular request")
     response = await call_next(request)
-    print(f"Response status: {response.status_code}")
+    
+    # Add CORS headers to all responses
+    response.headers["Access-Control-Allow-Origin"] = "https://budget-brain-djxl.vercel.app"
+    response.headers["Access-Control-Allow-Credentials"] = "true"
+    
+    print(f"Regular Response Status: {response.status_code}")
+    print(f"Regular Response Headers: {dict(response.headers)}")
+    print("=== END CORS Handler ===\n")
+    
     return response
+
 
 # ----------------------------
 # Baseline point-estimate benchmarks (fallback)
