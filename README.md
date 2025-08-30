@@ -1,4 +1,4 @@
-# Budget Brain 🧠
+# BudgetBrain 🧠
 
 AI-powered budget allocation system that decides how to split advertising budgets across Google, Meta, TikTok, and LinkedIn using structured reasoning, uncertainty modeling, and LLM intelligence.
 
