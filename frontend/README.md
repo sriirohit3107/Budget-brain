@@ -6,7 +6,7 @@ This React application has been refactored from a monolithic `App.js` file into 
 
 ```
 frontend/src/
-├── components/           # Reusable UI components
+├── components/          # Reusable UI components
 │   ├── index.js         # Component exports
 │   ├── Logo.js          # Logo component
 │   ├── Hero.js          # Hero section component
