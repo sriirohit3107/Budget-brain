@@ -35,7 +35,8 @@ import './App.css';
 
 // ----- Axios base URL -----
 axios.defaults.baseURL =
-  process.env.REACT_APP_API_BASE || 'http://localhost:8000';
+process.env.REACT_APP_API_BASE || 'https://budgetbrain-production.up.railway.app';
+
 
 function App() {
   const [companyData, setCompanyData] = useState({

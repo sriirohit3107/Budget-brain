@@ -13,6 +13,7 @@ from typing import Dict, Optional, List, Any
 from dotenv import load_dotenv
 import json, re, copy
 import os
+import uvicorn
 # ML integration removed - using pure Monte Carlo + Gemini approach
 # ----------------------------
 # Env & Gemini configuration
@@ -27,7 +28,8 @@ app = FastAPI(title="Budget Brain API", description="AI-powered ad budget alloca
 # CORS for frontend dev
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:3001", "http://127.0.0.1:3001"],
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "https://budget-brain-1vhp2fcrn-sriis-projects-97853f0d.vercel.app ",
+],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
@@ -704,5 +706,5 @@ Explain using platform strengths and typical audience behavior. Avoid fluff. No 
         return {"explanation": f"Error generating explanation: {str(e)}"}
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)

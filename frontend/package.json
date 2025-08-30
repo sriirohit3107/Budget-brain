@@ -2,7 +2,7 @@
   "name": "budget-brain-frontend",
   "version": "1.0.0",
   "description": "Frontend for Budget Brain application",
-  "homepage": "https://sriirohit3107.github.io/Budget-brain",
+  "homepage": ".",
   "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
