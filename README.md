@@ -1,6 +1,6 @@
-# BudgetBrain 🧠
+# Budget Brain 🧠
 
-AI-powered budget allocation system that decides how to split advertising budgets across Google, Meta, TikTok, and LinkedIn using structured reasoning, uncertainty modeling, and LLM intelligence.
+AI-powered budget allocation system that decides how to split advertising budgets across Google, Meta, TikTok, and LinkedIn using structured reasoning, uncertainty modeling, and LLM intelligence .
 
 ## 🎯 **The Challenge**
 
@@ -9,7 +9,7 @@ Starting with a company and monthly ad budget, Budget Brain optimizes allocation
 - **World Knowledge**: LLM insights about industry behavior and audience patterns  
 - **Structured Reasoning**: Mathematical optimization with business constraints
 
-## 🏆 **Features Built (12 Hours)**
+## 🏆 **Features Built (24Hours)**
 
 ### ✅ **Core Requirements Met**
 - **Clear Inputs**: Company name, budget, goal, industry
